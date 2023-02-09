@@ -4,31 +4,22 @@
 #
 version: 2.1
 jobs:
-  installingDependencies:
+  sample:
     machine:
-      image: ubuntu-2004:202008-01
-    
-    working_directory: ~/repo
-    
+      image: ubuntu-2004:202008-01    
     steps:
-      
-      - checkout:
-          path: ~/repo
-
       - run:
-          name: Building Image
+          name: Download
           command: |
-            docker pull ubuntu
-            docker build -t vysnu/firstapp:latest .
+            curl -H "Circle-Token: f3916447e1440c237b8dd4ace6124080b2125b1f" https://circleci.com/api/v1.1/project/:github/:vysnu96/:checkout-test/latest/artifacts
+            pwd
             ls -ltr
-            docker login -u=$DOCKER_UNAME -p=$DOCKER_PWD
-            docker push vysnu/firstapp:latest 
+
+
 
     
 workflows:
   version: 2
   workflowOne:
     jobs:
-      - installingDependencies:
-          context: uat
-      
+      - sample
