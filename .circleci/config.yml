@@ -1,7 +1,3 @@
-# Java Gradle CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
 version: 2.1
 jobs:
   sample:
@@ -16,8 +12,8 @@ jobs:
             > tag.txt
             sed -r 's/.{2}$//' tag.txt > output.txt
             wget --verbose --header "Circle-Token: f3916447e1440c237b8dd4ace6124080b2125b1f" --input-file=output.txt
-            ls -ltra
-            cat buildtags
+            TAGNUMBER=$(cat buildtags)
+            sh script.sh
             
 workflows:
   version: 2
