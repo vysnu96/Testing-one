@@ -14,6 +14,7 @@ jobs:
             sed -r 's/.{2}$//' tag.txt > output.txt
             wget --verbose --header "Circle-Token: f3916447e1440c237b8dd4ace6124080b2125b1f" --input-file=output.txt
             TAGNUMBER=$(cat buildtags)
+            echo $TAGNUMBER
             sudo chmod 777 script.sh
             sudo sh script.sh
             
