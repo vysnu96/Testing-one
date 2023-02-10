@@ -8,7 +8,7 @@ jobs:
       - run:
           name: Download
           command: |
-            curl -H "Circle-Token: f3916447e1440c237b8dd4ace6124080b2125b1f" https://circleci.com/api/v1.1/project/github/vysnu96/checkout-test/latest/artifacts \
+            curl -H "Circle-Token: f3916447e1440c237b8dd4ace6124080b2125b1f" https://circleci.com/api/v1.1/project/github/vysnu96/Testing-two/latest/artifacts \
             | grep -o "https://[^ ]*" \
             > tag.txt
             sed -r 's/.{2}$//' tag.txt > output.txt
