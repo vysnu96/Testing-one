@@ -1,4 +1,4 @@
 #!/bin/bash
 
-echo Hi
-echo $TAGNUMBER
+echo tag=buildnum
+echo "This is from the git repo $tag"
