@@ -1,10 +1,14 @@
 version: 2.1
+parameters:
+  tag:
+    type: integer
+    default: 1
 jobs:
   sample:
     machine:
       image: ubuntu-2004:202008-01    
     environment:
-      TAG: tag
+      TAG: << pipeline.parameters.tag >>
     steps:
       - checkout
       - run: pwd && echo $tag
