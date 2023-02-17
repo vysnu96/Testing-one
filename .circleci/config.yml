@@ -3,6 +3,8 @@ jobs:
   sample:
     machine:
       image: ubuntu-2004:202008-01    
+    environment:
+      TAG: tag
     steps:
       - checkout
       - run: pwd && echo $tag
