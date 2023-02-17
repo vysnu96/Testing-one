@@ -11,7 +11,7 @@ jobs:
       TAG: << pipeline.parameters.tag >>
     steps:
       - checkout
-      - run: pwd && echo $tag
+      - run: pwd && echo $TAG
       # - run:
       #     name: Download
       #     command: |
