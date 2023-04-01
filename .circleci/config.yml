@@ -1,22 +1,37 @@
 version: 2.1
-commands: # a reusable command with parameters
-  greeting:
-    parameters:
-      to:
-        default: "world"
-        type: string
-    steps:
-      - run: echo "Hello <<parameters.to>>"
-jobs:
-  my-job:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - greeting:
-          to: "Vishnu!"
-workflows:
-  my-workflow:
-    jobs:
-      - my-job
 
+parameters:
+  api:
+    type: boolean
+    default: false
+
+
+executors:
+  node:
+    docker:
+      - image: circleci/node
+
+jobs:
+
+  build:
+    parameters:
+      package_name:
+        type: string
+
+    executor: node
+    steps:
+      - checkout:
+
+      - run: echo "<< parameters.package_name >> built."
+      - run: echo "Build << parameters.package_name >> ..."
+
+workflows:
+  version: 2
+
+  api:
+    when: << pipeline.parameters.api >>
+    jobs:
+      - build:
+          name: api-build
+          package_name: api
 
