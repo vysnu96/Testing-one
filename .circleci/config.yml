@@ -9,7 +9,7 @@ parameters:
 executors:
   node:
     docker:
-      - image: cimg/node
+      - image: cimg/base:2023.02
 
 jobs:
   build:
