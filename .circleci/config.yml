@@ -29,6 +29,6 @@ workflows:
     when: << pipeline.parameters.api >>
     jobs:
       - build:
-          name: api-build
+          name: what is this?
           package_name: api
 
