@@ -1,34 +1,27 @@
+# Inside config.yml
 version: 2.1
-parameters:
-  tag:
-    type: boolean
-    default: false
 jobs:
-  sample:
-    machine:
-      image: ubuntu-2004:202008-01    
-    environment:
-      TAG: << pipeline.parameters.tag >>
+  myjob:
+    parameters:
+      preinstall-foo:
+        type: boolean
+        default: false
+    machine: true
     steps:
-      - checkout
-      - run: pwd && echo $TAG
-      # - run:
-      #     name: Download
-      #     command: |
-      #       curl -H "Circle-Token: f3916447e1440c237b8dd4ace6124080b2125b1f" https://circleci.com/api/v1.1/project/github/vysnu96/Testing-two/latest/artifacts \
-      #       | grep -o "https://[^ ]*" \
-      #       > tag.txt
-      #       sed -r 's/.{2}$//' tag.txt > output.txt
-      #       wget --verbose --header "Circle-Token: f3916447e1440c237b8dd4ace6124080b2125b1f" --input-file=output.txt
-      #       TAGNUMBER=$(cat buildtags)
-      #       echo "This output is from the pipeline $TAGNUMBER"
-      #       sed "s/buildnum/$TAGNUMBER/g" -i script.sh
-      #       sudo sh script.sh
-            
+      - run: echo "preinstall is << parameters.preinstall-foo >>"
+      - when:
+          condition: << parameters.preinstall-foo >>
+          steps:
+            - run: echo "preinstall"
+      - unless:
+          condition: << parameters.preinstall-foo >>
+          steps:
+            - run: echo "don't preinstall"
 workflows:
-  workflowOne:
-    when:
-      or:
-        - << pipeline.parameters.tag >>
+  workflow:
     jobs:
-      - sample
+      - myjob:
+          preinstall-foo: false
+      - myjob:
+          preinstall-foo: true
+      - myjob # The empty string is falsy
