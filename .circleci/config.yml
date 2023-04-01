@@ -1,27 +1,22 @@
-# Inside config.yml
 version: 2.1
-jobs:
-  myjob:
+commands: # a reusable command with parameters
+  greeting:
     parameters:
-      preinstall-foo:
-        type: boolean
-        default: false
-    machine: true
+      to:
+        default: "world"
+        type: string
     steps:
-      - run: echo "preinstall is << parameters.preinstall-foo >>"
-      - when:
-          condition: << parameters.preinstall-foo >>
-          steps:
-            - run: echo "preinstall"
-      - unless:
-          condition: << parameters.preinstall-foo >>
-          steps:
-            - run: echo "don't preinstall"
+      - run: echo "Hello <<parameters.to>>"
+jobs:
+  my-job:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - greeting:
+          to: "Vishnu!"
 workflows:
-  workflow:
+  my-workflow:
     jobs:
-      - myjob:
-          preinstall-foo: false
-      - myjob:
-          preinstall-foo: true
-      - myjob # The empty string is falsy
+      - my-job
+
+
