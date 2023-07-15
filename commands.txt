@@ -1,0 +1,1 @@
+python3 /home/vishnu/Downloads/git-filter-repo --invert-paths --path .circleci/config.yml
